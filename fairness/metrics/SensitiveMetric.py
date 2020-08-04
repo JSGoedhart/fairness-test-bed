@@ -26,11 +26,11 @@ class SensitiveMetric(Metric):
           self.name = self.metric().get_name()   # to be modified as this metric is expanded
 
      def calc(self, actual, predicted, dict_of_sensitive_lists, single_sensitive_name,
-              unprotected_vals, positive_pred):
+              unprotected_vals, positive_pred, features = None):
           sfilter = FilterSensitive(self.metric())
           sfilter.set_sensitive_to_filter(self.sensitive_attr, self.sensitive_val)
           return sfilter.calc(actual, predicted, dict_of_sensitive_lists, single_sensitive_name,
-                              unprotected_vals, positive_pred)
+                              unprotected_vals, positive_pred, features)
 
      def expand_per_dataset(self, dataset, sensitive_dict, tag):
           objects_list = []

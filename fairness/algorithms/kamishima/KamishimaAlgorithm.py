@@ -82,22 +82,34 @@ class KamishimaAlgorithm(Algorithm):
         eta_val = params['eta']
 
         BASE_DIR = os.path.dirname(__file__)
+
+        print('\n')
+        print('BASE_DIR: ', BASE_DIR)
+        print('\n')
+
         subprocess.run(['python3', BASE_DIR + '/kamfadm-2012ecmlpkdd/train_pr.py',
                         '-e', str(eta_val),
                         '-i', train_name,
-                        '-o', model_name,
-                        '--quiet'])
+                        '-o', model_name])
         subprocess.run(['python3', BASE_DIR + '/kamfadm-2012ecmlpkdd/predict_lr.py',
                         '-i', test_name,
                         '-m', model_name,
-                        '-o', output_name,
-                        '--quiet'])
+                        '-o', output_name])
         os.unlink(train_name)
         os.unlink(model_name)
         os.unlink(test_name)
 
+        print('\n')
+        print("OUTPUTNAME: ", output_name)
+        print('\n')
+
+
         m = numpy.loadtxt(output_name)
         os.unlink(output_name)
+
+        print('\n')
+        print(m)
+        print('\n')
 
         predictions = m[:,1]
         predictions_correct = [class_type(x) for x in predictions]

@@ -291,7 +291,7 @@ def get_one_hot_encoding(in_arr):
     """
 
     for k in in_arr:
-        if str(type(k)) != "<type 'numpy.float64'>" and type(k) != int and type(k) != np.int64:
+        if str(type(k)) != "<type 'numpy.float64'>" and type(k) != int and type(k) != np.int64 and type(k) != np.int32:
             print(str(type(k)))
             print("************* ERROR: Input arr does not have integer types")
             return None
@@ -491,11 +491,10 @@ def get_constraint_list_cov(x_train, y_train, x_control_train, sensitive_attrs, 
 
     constraints = []
 
-
     for attr in sensitive_attrs:
 
-
         attr_arr = x_control_train[attr]
+
         attr_arr_transformed, index_dict = get_one_hot_encoding(attr_arr)
                 
         if index_dict is None: # binary attribute

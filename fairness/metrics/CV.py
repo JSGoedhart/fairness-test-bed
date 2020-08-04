@@ -11,7 +11,7 @@ class CV(Metric):
         self.name = 'CV'
 
     def calc(self, actual, predicted, dict_of_sensitive_lists, single_sensitive_name,
-             unprotected_vals, positive_pred):
+             unprotected_vals, positive_pred, features = None):
         sensitive = dict_of_sensitive_lists[single_sensitive_name]
         unprotected_pos_percent, protected_pos_percent = \
             calc_pos_protected_percents(predicted, sensitive, unprotected_vals, positive_pred)

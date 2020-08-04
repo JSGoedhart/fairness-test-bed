@@ -17,9 +17,12 @@ from fairness.metrics.MCC import MCC
 from fairness.metrics.SensitiveMetric import SensitiveMetric
 from fairness.metrics.TNR import TNR
 from fairness.metrics.TPR import TPR
+from fairness.metrics.Consistency import Consistency
+from fairness.metrics.BaseRateDifference import BaseRateDifference
 
 METRICS = [ Accuracy(), TPR(), TNR(), BCR(), MCC(),        # accuracy metrics
-            DIBinary(), DIAvgAll(), CV(),                  # fairness metrics
+            DIBinary(), DIAvgAll(), CV(), Consistency(),   # fairness metrics
+            BaseRateDifference(),                          # base rate difference
             SensitiveMetric(Accuracy), SensitiveMetric(TPR), SensitiveMetric(TNR),
             SensitiveMetric(FPR), SensitiveMetric(FNR),
             SensitiveMetric(CalibrationPos), SensitiveMetric(CalibrationNeg) ]

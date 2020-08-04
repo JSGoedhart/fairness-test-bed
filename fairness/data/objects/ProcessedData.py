@@ -2,7 +2,7 @@ import pandas as pd
 import numpy
 import numpy.random
 
-TAGS = ["original", "numerical", "numerical-binsensitive", "categorical-binsensitive"]
+TAGS = ["numerical-binsensitive"] #, "categorical-binsensitive"]
 TRAINING_PERCENT = 2.0 / 3.0
 
 class ProcessedData():

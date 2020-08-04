@@ -3,11 +3,15 @@ import pandas as pd
 import pathlib
 import sys
 import subprocess
+import warnings
 
 from ggplot import *
 
 from fairness.data.objects.list import DATASETS, get_dataset_names
 from fairness.data.objects.ProcessedData import TAGS
+
+warnings.filterwarnings("ignore")
+
 
 # The graphs to generate: (xaxis measure, yaxis measure)
 GRAPHS = [('DIbinary', 'accuracy'), ('sex-TPR', 'sex-calibration-')]

@@ -96,6 +96,9 @@ def run_eval_alg(algorithm, train, test, dataset, processed_data, all_sensitive_
     """
     Runs the algorithm and gets the resulting metric evaluations.
     """
+
+    features = test.loc[:, test.columns != dataset.get_class_attribute()]
+
     privileged_vals = dataset.get_privileged_class_names_with_joint(tag)
     positive_val = dataset.get_positive_class_val(tag)
 
@@ -116,7 +119,7 @@ def run_eval_alg(algorithm, train, test, dataset, processed_data, all_sensitive_
     one_run_results = []
     for metric in get_metrics(dataset, sensitive_dict, tag):
         result = metric.calc(actual, predicted, dict_sensitive_lists, single_sensitive,
-                             privileged_vals, positive_val)
+                             privileged_vals, positive_val, features)
         one_run_results.append(result)
 
     # handling the set of predictions returned by ParamGridSearch
@@ -127,7 +130,7 @@ def run_eval_alg(algorithm, train, test, dataset, processed_data, all_sensitive_
             results = []
             for metric in get_metrics(dataset, sensitive_dict, tag):
                 result = metric.calc(actual, predictions, dict_sensitive_lists, single_sensitive,
-                                     privileged_vals, positive_val)
+                                     privileged_vals, positive_val, features)
                 results.append(result)
             results_lol.append( (params_dict, results) )
 
@@ -166,7 +169,7 @@ def create_detailed_file(filename, dataset, sensitive_dict, tag):
     # return f
 
 def main():
-    fire.Fire(run)
+    fire.Fire(run)  
 
 if __name__ == '__main__':
     main()

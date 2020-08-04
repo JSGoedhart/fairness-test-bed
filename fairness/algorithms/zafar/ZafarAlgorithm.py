@@ -41,13 +41,16 @@ class ZafarAlgorithmBase(Algorithm):
         test_name = create_file(test_df)
         fd, predictions_name = tempfile.mkstemp()
         os.close(fd)
-        # print("CURRENT DIR: %s" % os.getcwd())
-        # print("SENSITIVE ATTR: %s" % single_sensitive)
+        #print("CURRENT DIR: %s" % os.getcwd())
+        #print("SENSITIVE ATTR: %s" % single_sensitive)
 
         cmd = self.create_command_line(train_name, test_name, predictions_name, params)
+        #print('cmd: ', cmd)
         BASE_DIR = os.path.dirname(__file__)
         result = subprocess.run(cmd,
-            cwd = BASE_DIR + '/fair-classification-master/disparate_impact/run-classifier/')
+            cwd = os.path.join(BASE_DIR, 'fair-classification-master', 'disparate_impact', 'run-classifier', ''))
+        #print('BASE_DIR: ', BASE_DIR)
+        # print('CWD: ', os.path.join(BASE_DIR, 'fair-classification-master', 'disparate_impact', 'run-classifier', ''))
         os.unlink(train_name)
         os.unlink(test_name)
         if result.returncode != 0:
@@ -76,7 +79,7 @@ class ZafarAlgorithmBaseline(ZafarAlgorithmBase):
         self.name = "ZafarBaseline"
 
     def create_command_line(self, train_name, test_name, predictions_name, params):
-        return ['python3', 'main.py',
+        return ['python', 'main.py',
                 train_name,
                 test_name,
                 predictions_name,
@@ -96,7 +99,7 @@ class ZafarAlgorithmAccuracy(ZafarAlgorithmBase):
         return {'gamma': 0.5}
 
     def create_command_line(self, train_name, test_name, predictions_name, params):
-        return ['python3', 'main.py',
+        return ['python', 'main.py',
                 train_name,
                 test_name,
                 predictions_name,
@@ -117,7 +120,7 @@ class ZafarAlgorithmFairness(ZafarAlgorithmBase):
         return {'c': 0.001}
 
     def create_command_line(self, train_name, test_name, predictions_name, params):
-        return ['python3', 'main.py',
+        return ['python', 'main.py',
                 train_name,
                 test_name,
                 predictions_name,

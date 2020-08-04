@@ -7,5 +7,5 @@ class Accuracy(Metric):
         self.name = 'accuracy'
 
     def calc(self, actual, predicted, dict_of_sensitive_lists, single_sensitive_name,
-             unprotected_vals, positive_pred):
+             unprotected_vals, positive_pred, features = None):
         return accuracy_score(actual, predicted)

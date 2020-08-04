@@ -106,7 +106,7 @@ class CaldersAlgorithm(Algorithm):
                             '--quiet'])
             if result2.returncode != 0:
                 raise Exception("prediction procedure failed")
-
+            
             m = numpy.loadtxt(output_name)
 
             inv_class_dict = dict((v,k) for (k,v) in dicts[class_attr].items())

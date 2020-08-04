@@ -7,7 +7,7 @@ class FilterSensitive(Metric):
           self.name = metric.get_name()
 
      def calc(self, actual, predicted, dict_of_sensitive_lists, single_sensitive_name,
-              unprotected_vals, positive_pred):
+              unprotected_vals, positive_pred, features = None):
 
           sensitive = dict_of_sensitive_lists[self.sensitive_for_metric]
           actual_sens = \
@@ -28,7 +28,7 @@ class FilterSensitive(Metric):
               return None
 
           return self.metric.calc(actual_sens, predicted_sens, filtered_dict, single_sensitive_name,
-                                  unprotected_vals, positive_pred)
+                                  unprotected_vals, positive_pred, features)
 
      def set_sensitive_to_filter(self, sensitive_name, sensitive_val):
           """

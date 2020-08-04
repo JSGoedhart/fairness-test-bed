@@ -12,7 +12,7 @@ class EqOppo_fp_ratio(Metric):
         self.name = 'EqOppo_fp_ratio'
 
     def calc(self, actual, predicted, dict_of_sensitive_lists, single_sensitive_name,
-             unprotected_vals, positive_pred):
+             unprotected_vals, positive_pred, features = None):
         sensitive = dict_of_sensitive_lists[single_sensitive_name]
 
         fp_unprotected,fp_protected, fn_protected, fn_unprotected = \

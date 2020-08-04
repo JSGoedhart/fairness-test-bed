@@ -14,7 +14,7 @@ class Metric:
         return self
 
     def calc(self, actual, predicted, dict_of_sensitive_lists, single_sensitive_name,
-             unprotected_vals, positive_pred):
+             unprotected_vals, positive_pred, features):
         """
         actual                          a list of the actual results on the test set
         predicted                       a list of the predicted results
@@ -23,6 +23,7 @@ class Metric:
                                         focused on by this run of the algorithm
         unprotected_vals                a list of the unprotected values for all sensitive attrs
         positive_pred                   the positive value of the prediction task.
+        features                        a numpy array, needed for the individual fairness calculations
 
         returns                         the calculated result for this metric
 

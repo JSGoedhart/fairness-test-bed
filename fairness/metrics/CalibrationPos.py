@@ -6,7 +6,7 @@ class CalibrationPos(Metric):
           self.name = 'calibration+'
 
      def calc(self, actual, predicted, dict_of_sensitive_lists, single_sensitive_name,
-              unprotected_vals, positive_pred):
+              unprotected_vals, positive_pred, features = None):
           total_pred_positive = 0.0
           act_correct = 0.0
           for act, pred in zip(actual, predicted):

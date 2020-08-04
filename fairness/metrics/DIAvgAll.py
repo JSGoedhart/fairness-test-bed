@@ -16,7 +16,7 @@ class DIAvgAll(Metric):
         self.name = 'DIavgall'
 
     def calc(self, actual, predicted, dict_of_sensitive_lists, single_sensitive_name,
-             unprotected_vals, positive_pred):
+             unprotected_vals, positive_pred, features = None):
         sensitive = dict_of_sensitive_lists[single_sensitive_name]
         sensitive_values = list(set(sensitive))
 

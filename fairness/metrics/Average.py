@@ -11,12 +11,12 @@ class Average(Metric):
           self.metrics = metrics_list
 
      def calc(self, actual, predicted, dict_of_sensitive_lists, single_sensitive_name,
-              unprotected_vals, positive_pred):
+              unprotected_vals, positive_pred, features = None):
 
           total = 0.0
           for metric in self.metrics:
                result = metric.calc(actual, predicted, dict_of_sensitive_lists,
-                                    single_sensitive_name, unprotected_vals, positive_pred)
+                                    single_sensitive_name, unprotected_vals, positive_pred, features)
                if result != None:
                    total += result
 
