@@ -7,8 +7,10 @@ from fairness.metrics.list import get_metrics
 
 # FIXME: this could probably be handled better on Windows
 def local_results_path():
-    home = pathlib.Path.home()
-    path = home / '.fairness'
+    # home = pathlib.Path.home()
+    # path = home / '.fairness'
+    path = os.path.join(os.getcwd(), 'fairness') # Joosje
+    path = pathlib.Path(path)
     ensure_dir(path)
     return path
 
