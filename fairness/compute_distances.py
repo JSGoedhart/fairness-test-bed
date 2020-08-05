@@ -20,8 +20,6 @@ def main():
 
 		# Compute distances
 		processed_dataset.generate_distance_matrix()
-	# run()
-
 
 if __name__ == '__main__':
 	main()
