@@ -32,8 +32,6 @@ def run(num_trials = NUM_TRIALS_DEFAULT, dataset = get_dataset_names(),
 
         print("\nEvaluating dataset:" + dataset_obj.get_dataset_name())
 
-        print(dataset_obj.get_filename('numerical-binsensitive'))
-
         processed_dataset = ProcessedData(dataset_obj)
         train_test_splits = processed_dataset.create_train_test_splits(num_trials)
 

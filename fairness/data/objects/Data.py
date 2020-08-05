@@ -10,9 +10,6 @@ RESULT_DIR = BASE_DIR / "results"
 ANALYSIS_DIR = BASE_DIR / "analysis"
 
 
-print('BASE_DIR: ', BASE_DIR)
-
-
 class Data():
     def __init__(self):
         pass
