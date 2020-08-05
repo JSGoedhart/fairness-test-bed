@@ -6,7 +6,7 @@ import pandas as pd
 class Consistency(Metric):
     def __init__(self):
         Metric.__init__(self)
-        self.name = 'consistency'
+        self.name = 'indiv_fairness_consistency'
         self.n_neighbors = 5
 
     def euclidian_distance(self, a, b):

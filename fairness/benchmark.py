@@ -2,6 +2,7 @@ import fire
 import os
 import statistics
 import sys
+import numpy as np
 
 from fairness import results
 from fairness.data.objects.list import DATASETS, get_dataset_names
@@ -30,6 +31,8 @@ def run(num_trials = NUM_TRIALS_DEFAULT, dataset = get_dataset_names(),
             continue
 
         print("\nEvaluating dataset:" + dataset_obj.get_dataset_name())
+
+        print(dataset_obj.get_filename('numerical-binsensitive'))
 
         processed_dataset = ProcessedData(dataset_obj)
         train_test_splits = processed_dataset.create_train_test_splits(num_trials)
@@ -61,6 +64,9 @@ def run(num_trials = NUM_TRIALS_DEFAULT, dataset = get_dataset_names(),
                 for i in range(0, num_trials):
                     for supported_tag in algorithm.get_supported_data_types():
                         train, test = train_test_splits[supported_tag][i]
+                        
+                        test_indices = list(test.index.values)
+
                         try:
                             params, results, param_results =  \
                                 run_eval_alg(algorithm, train, test, dataset_obj, processed_dataset,
@@ -118,8 +124,15 @@ def run_eval_alg(algorithm, train, test, dataset, processed_data, all_sensitive_
     sensitive_dict = processed_data.get_sensitive_values(tag)
     one_run_results = []
     for metric in get_metrics(dataset, sensitive_dict, tag):
-        result = metric.calc(actual, predicted, dict_sensitive_lists, single_sensitive,
+
+        # Individual fairness metrics need other definitions
+        if 'indiv_fairness' in metric.name:
+            result = metric.calc(actual, predicted, dict_sensitive_lists, single_sensitive,
                              privileged_vals, positive_val, features)
+        else:
+            result = metric.calc(actual, predicted, dict_sensitive_lists, single_sensitive,
+                             privileged_vals, positive_val)
+
         one_run_results.append(result)
 
     # handling the set of predictions returned by ParamGridSearch

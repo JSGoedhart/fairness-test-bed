@@ -2,6 +2,10 @@ import pandas as pd
 import numpy
 import numpy.random
 
+import os
+from sklearn.metrics import pairwise_distances
+import pickle
+
 TAGS = ["numerical-binsensitive"] #, "categorical-binsensitive"]
 TRAINING_PERCENT = 2.0 / 3.0
 
@@ -55,3 +59,25 @@ class ProcessedData():
              sensdict[sens] = list(set(df[sens].values.tolist()))
         return sensdict
 
+    def generate_distance_matrix(self, distance_metric = 'euclidean'):
+
+        if distance_metric not in ['euclidean', 'cosine']:
+            raise Exception('In order to compute the distance matrix, type should be euclidean or cosine')
+
+        for k in TAGS:
+            class_attribute = self.data.get_class_attribute()
+            df = self.dfs[k]
+
+            path = os.path.splitext(self.data.get_filename(k))[0]
+            filename = path + '_distance_matrix_' + distance_metric + '.pkl'
+
+            # Select features and compute distance metric
+            features = df.loc[:, df.columns != 'class_attribute']
+            distance_matrix = pairwise_distances(features, metric = distance_metric)
+
+            # Save as pkl file
+            pickle.dump(distance_matrix, open(filename, 'wb'), protocol = 4)
+
+            print("Saved distance matrix for dataset " + self.data.get_dataset_name())
+
+        return None
