@@ -5,9 +5,12 @@ from fairness.results import local_results_path
 BASE_DIR = local_results_path()
 PACKAGE_DIR = pathlib.Path(__file__).parents[2]
 RAW_DATA_DIR = PACKAGE_DIR / 'data' / 'raw'
-PROCESSED_DATA_DIR = PACKAGE_DIR / 'data' / 'preprocessed'
+PROCESSED_DATA_DIR = BASE_DIR / 'data' / 'preprocessed' # Joosje: BASE_DIR used to be PACKAGE_DIR
 RESULT_DIR = BASE_DIR / "results"
 ANALYSIS_DIR = BASE_DIR / "analysis"
+
+
+print('BASE_DIR: ', BASE_DIR)
 
 
 class Data():
