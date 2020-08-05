@@ -1,4 +1,3 @@
-from fairness.benchmark import run
 import warnings
 warnings.filterwarnings("ignore")
 
