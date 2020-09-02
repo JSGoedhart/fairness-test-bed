@@ -13,9 +13,9 @@ preprocessed_path = os.path.join(current_path, 'fairness', 'data', 'preprocessed
 
 
 baselines = ['SVM', 'GaussianNB', 'LR', 'DecisionTree']
-datasets = ['ricci_Race_numerical-binsensitive']#, 'german_sex_numerical-binsensitive', 'german_age_numerical-binsensitive'] #['propublica-recidivism_race_numerical-binsensitive', 'propublica-recidivism_sex_numerical-binsensitive', 'german_sex_numerical-binsensitive', 'german_age_numerical-binsensitive', 'ricci_Race_numerical-binsensitive']
+datasets = ['ricci_Race_numerical-binsensitive', 'german_sex_numerical-binsensitive', 'german_age_numerical-binsensitive'] #['propublica-recidivism_race_numerical-binsensitive', 'propublica-recidivism_sex_numerical-binsensitive', 'german_sex_numerical-binsensitive', 'german_age_numerical-binsensitive', 'ricci_Race_numerical-binsensitive']
 metrics = (['CV', 'indiv_fairness_consistency', 'accuracy', 
-	'indiv_fairness_consistency_cosine', 'indiv_fairness_consistency_hamming'])
+	'indiv_fairness_consistency_cosine'])#, 'indiv_fairness_consistency_hamming'])
 
 metric_combinations = list(combinations(metrics, 2))
 
@@ -23,7 +23,7 @@ metric_maps = {
 	'CV': 'Statistical Parity (Group Fairness)',
 	'indiv_fairness_consistency': 'Consistency Euclidian (Individual Fairness)',
 	'indiv_fairness_consistency_cosine': 'Consistency Cosine (Individual Fairness)',
-	'indiv_fairness_consistency_hamming': 'Consistency Hamming (Individual Fairness)',
+	#'indiv_fairness_consistency_hamming': 'Consistency Hamming (Individual Fairness)',
 	'accuracy': 'Accuracy'
 }
 
@@ -41,6 +41,12 @@ for dataset in datasets:
 	results_fairness = results[~results["algorithm"].isin(baselines)]
 
 	results_fairness['CV'] = results_fairness['CV'] - 1.0
+
+	# Only select algorithms with good Demographic Parity
+	rows_before = results_fairness.shape[0]
+	results_fairness = results_fairness.loc[(results_fairness['CV'] >= - 0.10) & (results_fairness['CV'] <= 0.10)]
+
+	print('Percentage of algorithms within Demographic Parity interval: ', results_fairness.shape[0] / rows_before)
 
 	metrics_mean = results_fairness.groupby('algorithm').mean()
 	metrics_std = results_fairness.groupby('algorithm').std()
