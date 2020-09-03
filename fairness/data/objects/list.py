@@ -23,11 +23,11 @@ DATASETS = [
 #     sensitive_attr="sex-race")
 
 # Real datasets:
-    # Ricci(),
-    # German(),
+    Ricci(),
+    German(),
     # PropublicaRecidivism(),
     # PropublicaViolentRecidivism(),
-    Adult()
+    # Adult()
     ]
 
 
