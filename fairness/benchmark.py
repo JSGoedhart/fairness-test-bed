@@ -12,7 +12,7 @@ from fairness.metrics.list import get_metrics
 
 from fairness.algorithms.ParamGridSearch import ParamGridSearch
 
-NUM_TRIALS_DEFAULT = 10
+NUM_TRIALS_DEFAULT = 5
 
 def get_algorithm_names():
     result = [algorithm.get_name() for algorithm in ALGORITHMS]
@@ -36,6 +36,7 @@ def run(num_trials = NUM_TRIALS_DEFAULT, dataset = get_dataset_names(),
         train_test_splits = processed_dataset.create_train_test_splits(num_trials)
 
         all_sensitive_attributes = dataset_obj.get_sensitive_attributes_with_joint()
+        all_sensitive_attributes = ['sex', 'race', 'race-sex']
         for sensitive in all_sensitive_attributes:
 
             print("Sensitive attribute:" + sensitive)
@@ -155,9 +156,12 @@ def run_alg(algorithm, train, test, dataset, all_sensitive_attributes, single_se
     # Note: the training and test set here still include the sensitive attributes because
     # some fairness aware algorithms may need those in the dataset.  They should be removed
     # before any model training is done.
+
     predictions, predictions_list =  \
         algorithm.run(train, test, class_attr, positive_val, all_sensitive_attributes,
                       single_sensitive, privileged_vals, params)
+
+    # print('predictions: ', predictions)
 
     return predictions, params, predictions_list
 

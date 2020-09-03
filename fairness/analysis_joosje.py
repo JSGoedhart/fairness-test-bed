@@ -8,14 +8,14 @@ from matplotlib.collections import PatchCollection
 from itertools import combinations
 
 current_path = os.getcwd()
-results_path = os.path.join(current_path, 'fairness', 'results')
+results_path = os.path.join(current_path, 'fairness', 'results', '00_lisa')
 preprocessed_path = os.path.join(current_path, 'fairness', 'data', 'preprocessed')
 
 
-baselines = ['SVM', 'GaussianNB', 'LR', 'DecisionTree']
-datasets = ['ricci_Race_numerical-binsensitive', 'german_sex_numerical-binsensitive', 'german_age_numerical-binsensitive'] #['propublica-recidivism_race_numerical-binsensitive', 'propublica-recidivism_sex_numerical-binsensitive', 'german_sex_numerical-binsensitive', 'german_age_numerical-binsensitive', 'ricci_Race_numerical-binsensitive']
+baselines = ['ZafarBaseline', 'Feldman-SVM'] # ['SVM', 'GaussianNB', 'LR', 'DecisionTree']
+datasets = ['propublica-recidivism_race_numerical-binsensitive', 'propublica-recidivism_sex_numerical-binsensitive', 'ricci_Race_numerical-binsensitive', 'german_sex_numerical-binsensitive', 'german_age_numerical-binsensitive', 'propublica-violent-recidivism_race_numerical-binsensitive', 'propublica-violent-recidivism_sex_numerical-binsensitive'] 
 metrics = (['CV', 'indiv_fairness_consistency', 'accuracy', 
-	'indiv_fairness_consistency_cosine'])#, 'indiv_fairness_consistency_hamming'])
+	'indiv_fairness_consistency_cosine', 'indiv_fairness_consistency_hamming'])
 
 metric_combinations = list(combinations(metrics, 2))
 
@@ -23,7 +23,7 @@ metric_maps = {
 	'CV': 'Statistical Parity (Group Fairness)',
 	'indiv_fairness_consistency': 'Consistency Euclidian (Individual Fairness)',
 	'indiv_fairness_consistency_cosine': 'Consistency Cosine (Individual Fairness)',
-	#'indiv_fairness_consistency_hamming': 'Consistency Hamming (Individual Fairness)',
+	'indiv_fairness_consistency_hamming': 'Consistency Hamming (Individual Fairness)',
 	'accuracy': 'Accuracy'
 }
 
@@ -32,10 +32,24 @@ colors = ("#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e3
 
 for dataset in datasets:
 
-	results = pd.read_csv(os.path.join(results_path, dataset + '.csv'), sep = ',', usecols = ['algorithm'] + metrics)
+	print('dataset: ', dataset)
+
+	dataset_name = dataset.split('_')[0]
+	sens_attr = dataset.split('_')[1]
+
+	if not os.path.exists(os.path.join(results_path, dataset_name, sens_attr)):
+		os.makedirs(os.path.join(results_path, dataset_name, sens_attr))
+
+	results = pd.read_csv(os.path.join(results_path, dataset + '.csv'), sep = ',', usecols = ['algorithm'] + metrics + ['TPR'] + ['TNR'])
 
 	# Drop NAs
 	results = results.dropna(axis = 0, how = 'any')
+
+	# Drop rows with 0.0 TPR or 0.0 TNR (no convergence)
+	shape_before = results.shape[0]
+	results = results[results.TPR != 0]
+	results = results[results.TNR != 0]
+	print("Rows dropped due to TPR or TNR equals zero: ", shape_before - results.shape[0])
 
 	# Select dataframe with fairness algorithms only
 	results_fairness = results[~results["algorithm"].isin(baselines)]
@@ -43,17 +57,15 @@ for dataset in datasets:
 	results_fairness['CV'] = results_fairness['CV'] - 1.0
 
 	# Only select algorithms with good Demographic Parity
-	rows_before = results_fairness.shape[0]
-	results_fairness = results_fairness.loc[(results_fairness['CV'] >= - 0.10) & (results_fairness['CV'] <= 0.10)]
+	#rows_before = results_fairness.shape[0]
+	#results_fairness = results_fairness.loc[(results_fairness['CV'] >= - 0.10) & (results_fairness['CV'] <= 0.10)]
+	# print('Percentage of algorithms within Demographic Parity interval: ', results_fairness.shape[0] / rows_before)
 
-	print('Percentage of algorithms within Demographic Parity interval: ', results_fairness.shape[0] / rows_before)
-
+	# Compute mean and std of metrics
 	metrics_mean = results_fairness.groupby('algorithm').mean()
 	metrics_std = results_fairness.groupby('algorithm').std()
 
-	print(metrics_mean)
-	print(metrics_std)
-
+	# Create legends
 	algorithms = list(results_fairness['algorithm'].unique())
 	nr_algorithms = len(algorithms)
 	legend_objects = [Patch(facecolor = color, alpha = 0.5, edgecolor = color, label = algorithm) for color, algorithm in zip(colors[:nr_algorithms], algorithms)]
@@ -80,7 +92,9 @@ for dataset in datasets:
 		plt.ylim(y_min, y_max)
 		plt.title(dataset)
 		ax.legend(handles = legend_objects)
-		plt.savefig(os.path.join(results_path, 'figs_joosje', 'sensitivity', dataset + '_' + x + '_' + y))
+		plt.savefig(os.path.join(results_path, dataset_name, sens_attr, x + '_' + y))
+
+	print('\n')
 
 	# for combination in metric_combinations:
 

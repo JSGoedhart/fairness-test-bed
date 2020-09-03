@@ -8,6 +8,8 @@ from fairness.algorithms.baseline.GaussianNB import GaussianNB
 from fairness.algorithms.baseline.LogisticRegression import LogisticRegression
 from fairness.algorithms.ParamGridSearch import ParamGridSearch
 from fairness.algorithms.Ben.SDBSVM import SDBSVM
+from fairness.algorithms.zemel.ZemelAlgorithm import ZemelAlgorithm
+
 
 from fairness.metrics.DIAvgAll import DIAvgAll
 from fairness.metrics.Accuracy import Accuracy
@@ -15,13 +17,14 @@ from fairness.metrics.MCC import MCC
 
 
 ALGORITHMS = [
-	ZafarAlgorithmBaseline(),                                      # Zafar
-    ZafarAlgorithmFairness(),
-    ZafarAlgorithmAccuracy(),
-	FeldmanAlgorithm(SVM()), FeldmanAlgorithm(GaussianNB()),       # Feldman
-	FeldmanAlgorithm(LogisticRegression()), FeldmanAlgorithm(DecisionTree()),
+	#ZemelAlgorithm(),
+  ZafarAlgorithmBaseline(),                                      # Zafar
+  ZafarAlgorithmFairness(),
+  ZafarAlgorithmAccuracy(),
+	#FeldmanAlgorithm(SVM()), FeldmanAlgorithm(GaussianNB()),       # Feldman
+	#FeldmanAlgorithm(LogisticRegression()), FeldmanAlgorithm(DecisionTree()),
 	SVM(), GaussianNB(), LogisticRegression(), DecisionTree()
-   #FeldmanAlgorithm(LogisticRegression())    # baseline
+  # FeldmanAlgorithm(LogisticRegression())    # baseline
    #KamishimaAlgorithm(),                                          # Kamishima
    #CaldersAlgorithm(),                                            # Calders
 #    ZafarAlgorithmBaseline(),                                      # Zafar
