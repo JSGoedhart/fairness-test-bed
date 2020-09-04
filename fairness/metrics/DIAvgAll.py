@@ -5,7 +5,7 @@ from fairness.metrics.Metric import Metric
 
 class DIAvgAll(Metric):
     """
-    This metric calculates disparate imapct in the sense of the 80% rule before the 80%
+    This metric calculates disparate impact in the sense of the 80% rule before the 80%
     threshold is applied.  This is described as DI in: https://arxiv.org/abs/1412.3756
     If there are no positive protected classifications, 0.0 is returned.
 
