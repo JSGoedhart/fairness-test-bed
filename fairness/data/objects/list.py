@@ -25,9 +25,9 @@ DATASETS = [
 # Real datasets:
     Ricci(),
     German(),
-    # PropublicaRecidivism(),
-    # PropublicaViolentRecidivism(),
-    # Adult()
+    PropublicaRecidivism(),
+    PropublicaViolentRecidivism(),
+    Adult()
     ]
 
 

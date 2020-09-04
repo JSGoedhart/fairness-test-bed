@@ -49,8 +49,9 @@ class Data():
         Same as get_sensitive_attributes, but also includes the joint sensitive attribute if there
         is more than one sensitive attribute.
         """
-        if len(self.get_sensitive_attributes()) > 1:
-            return self.get_sensitive_attributes() + ['-'.join(self.get_sensitive_attributes())]
+        # Joosje: skip joint
+        # if len(self.get_sensitive_attributes()) > 1:
+        #     return self.get_sensitive_attributes() + ['-'.join(self.get_sensitive_attributes())]
         return self.get_sensitive_attributes()
 
     def get_privileged_class_names(self, tag):

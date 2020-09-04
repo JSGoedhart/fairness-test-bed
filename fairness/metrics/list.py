@@ -14,6 +14,7 @@ from fairness.metrics.EqOppo_fp_ratio import EqOppo_fp_ratio
 from fairness.metrics.FNR import FNR
 from fairness.metrics.FPR import FPR
 from fairness.metrics.MCC import MCC
+from fairness.metrics.F1Score import F1Score
 from fairness.metrics.SensitiveMetric import SensitiveMetric
 from fairness.metrics.TNR import TNR
 from fairness.metrics.TPR import TPR
@@ -22,7 +23,7 @@ from fairness.metrics.ConsistencyCosine import ConsistencyCosine
 from fairness.metrics.ConsistencyHamming import ConsistencyHamming
 from fairness.metrics.BaseRateDifference import BaseRateDifference
 
-METRICS = [ Accuracy(), TPR(), TNR(), BCR(), MCC(),        # accuracy metrics
+METRICS = [ Accuracy(), TPR(), TNR(), BCR(), MCC(), F1Score(),       # accuracy metrics
             DIBinary(), DIAvgAll(), CV(), Consistency(), ConsistencyCosine(), ConsistencyHamming(),  # fairness metrics
             BaseRateDifference()]                          # base rate difference
             #SensitiveMetric(Accuracy), SensitiveMetric(TPR), SensitiveMetric(TNR),

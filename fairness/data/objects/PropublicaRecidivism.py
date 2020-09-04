@@ -7,8 +7,8 @@ class PropublicaRecidivism(Data):
         self.dataset_name = 'propublica-recidivism'
         self.class_attr = 'two_year_recid'
         self.positive_class_val = 1
-        self.sensitive_attrs = ['sex', 'race']
-        self.privileged_class_names = ['Male', 'Caucasian']
+        self.sensitive_attrs = ['race'] # Joosje: we skip sex
+        self.privileged_class_names = ['Caucasian']
         self.categorical_features = ['age_cat', 'c_charge_degree', 'c_charge_desc']
         # days_b_screening_arrest, score_text, decile_score, and is_recid will be dropped after
         # data specific processing is done
