@@ -12,7 +12,7 @@ from fairness.metrics.list import get_metrics
 
 from fairness.algorithms.ParamGridSearch import ParamGridSearch
 
-NUM_TRIALS_DEFAULT = 50
+NUM_TRIALS_DEFAULT = 10
 
 def get_algorithm_names():
     result = [algorithm.get_name() for algorithm in ALGORITHMS]
