@@ -16,6 +16,7 @@ data/retailer/small-cleaned-retailer.csv
 data/retailer/repaired-retailers_.9.csv
 data/retailer/repaired-retailers_.8.csv
 data/retailer/repaired-retailers_1.csv
+fairness/data/distance_matrices
 analysis/
 fairness/analysis/
 fairness/results/
