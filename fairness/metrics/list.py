@@ -24,7 +24,7 @@ from fairness.metrics.ConsistencyHamming import ConsistencyHamming
 from fairness.metrics.BaseRateDifference import BaseRateDifference
 
 METRICS = [ Accuracy(), TPR(), TNR(), BCR(), MCC(), F1Score(),       # accuracy metrics
-            DIBinary(), DIAvgAll(), CV(), EqOppo_fn_diff(), EqOppo_fp_diff(), # group fairness metrics
+            DIBinary(), DIAvgAll(), CV(), # group fairness metrics
             Consistency(), ConsistencyCosine(), ConsistencyHamming(),  # individual fairness metrics
             BaseRateDifference(),                         # base rate difference
             SensitiveMetric(Accuracy), SensitiveMetric(TPR), SensitiveMetric(TNR), # more group fairness metrics
