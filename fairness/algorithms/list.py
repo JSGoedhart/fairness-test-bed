@@ -22,8 +22,8 @@ ALGORITHMS = [
   #ZafarAlgorithmFairness(),
   #ZafarAlgorithmAccuracy(),
 	FeldmanAlgorithm(SVM()), FeldmanAlgorithm(GaussianNB()),       # Feldman
-	FeldmanAlgorithm(LogisticRegression()), FeldmanAlgorithm(DecisionTree()),
-	SVM(), GaussianNB(), LogisticRegression(), DecisionTree()
+	FeldmanAlgorithm(LogisticRegression()), #FeldmanAlgorithm(DecisionTree()),
+	SVM(), GaussianNB(), LogisticRegression() #, DecisionTree()
   # FeldmanAlgorithm(LogisticRegression())    # baseline
    #KamishimaAlgorithm(),                                          # Kamishima
    #CaldersAlgorithm(),                                            # Calders

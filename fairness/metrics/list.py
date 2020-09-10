@@ -23,13 +23,17 @@ from fairness.metrics.ConsistencyCosine import ConsistencyCosine
 from fairness.metrics.ConsistencyHamming import ConsistencyHamming
 from fairness.metrics.BaseRateDifference import BaseRateDifference
 
-METRICS = [ Accuracy(), TPR(), TNR(), BCR(), MCC(), F1Score(),       # accuracy metrics
+metrics = [ Accuracy(), TPR(), TNR(), BCR(), MCC(), F1Score(),       # accuracy metrics
             DIBinary(), DIAvgAll(), CV(), # group fairness metrics
             Consistency(), ConsistencyCosine(), ConsistencyHamming(),  # individual fairness metrics
             BaseRateDifference(),                         # base rate difference
             SensitiveMetric(Accuracy), SensitiveMetric(TPR), SensitiveMetric(TNR), # more group fairness metrics
             SensitiveMetric(FPR), SensitiveMetric(FNR), # more group fairness metrics
             SensitiveMetric(CalibrationPos), SensitiveMetric(CalibrationNeg) ] # more group fairness metrics
+
+lipschitz = [LipschitzViolation(k, 'euclidian') for k in range(1, 20)]
+
+METRICS = metrics + lipschitz
 
 def get_metrics(dataset, sensitive_dict, tag):
     """
