@@ -22,6 +22,7 @@ from fairness.metrics.Consistency import Consistency
 from fairness.metrics.ConsistencyCosine import ConsistencyCosine
 from fairness.metrics.ConsistencyHamming import ConsistencyHamming
 from fairness.metrics.BaseRateDifference import BaseRateDifference
+from fairness.metrics.LipschitzViolation import LipschitzViolation
 
 metrics = [ Accuracy(), TPR(), TNR(), BCR(), MCC(), F1Score(),       # accuracy metrics
             DIBinary(), DIAvgAll(), CV(), # group fairness metrics
