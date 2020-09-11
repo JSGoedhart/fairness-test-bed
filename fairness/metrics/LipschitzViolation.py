@@ -18,7 +18,7 @@ class LipschitzViolation(Metric):
 
     def calc(self, actual, predicted, dict_of_sensitive_lists, single_sensitive_name, 
         unprotected_vals, positive_pred, indices, predicted_probs, dataset):
-
+    
         # Load distance matrix over features
         distance_path = os.path.join(os.getcwd(), 'fairness', 'data', 'distance_matrices')
         file = os.path.join(distance_path, dataset + '_' + 'numerical-binsensitive_distance_matrix'
@@ -33,5 +33,5 @@ class LipschitzViolation(Metric):
         dist_mat_y = pairwise_distances(predicted_probs, metric = self.total_variation_distance)
         
         violations = (dist_mat_x < self.K * dist_mat_y).sum()
-
+        
         return violations / (dist_mat_x.shape[0] * dist_mat_x.shape[0] - dist_mat_x.shape[0])

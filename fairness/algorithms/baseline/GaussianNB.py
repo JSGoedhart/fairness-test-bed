@@ -6,3 +6,4 @@ class GaussianNB(Generic):
         Generic.__init__(self)
         self.classifier = SKLearn_NB()
         self.name = "GaussianNB"
+        self.predict_proba = True

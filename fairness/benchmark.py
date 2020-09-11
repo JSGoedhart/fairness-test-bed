@@ -68,7 +68,7 @@ def run(num_trials = NUM_TRIALS_DEFAULT, dataset = get_dataset_names(),
                         try:
                             params, results, param_results =  \
                                 run_eval_alg(algorithm, train, test, dataset_obj, processed_dataset,
-                                             all_sensitive_attributes, sensitive, supported_tag)
+                                             all_sensitive_attributes, sensitive, supported_tag, test_indices)
                         except Exception as e:
                             import traceback
                             traceback.print_exc(file=sys.stderr)
@@ -96,7 +96,7 @@ def write_alg_results(file_handle, alg_name, params, run_id, results_list):
     file_handle.write(line)
 
 def run_eval_alg(algorithm, train, test, dataset, processed_data, all_sensitive_attributes,
-                 single_sensitive, tag):
+                 single_sensitive, tag, test_indices):
     """
     Runs the algorithm and gets the resulting metric evaluations.
     """
@@ -110,7 +110,7 @@ def run_eval_alg(algorithm, train, test, dataset, processed_data, all_sensitive_
     actual = test[dataset.get_class_attribute()].values.tolist()
     sensitive = test[single_sensitive].values.tolist()
 
-    predicted, params, predictions_list =  \
+    predicted, params, predictions_list, prediction_probs =  \
         run_alg(algorithm, train, test, dataset, all_sensitive_attributes, single_sensitive,
                 privileged_vals, positive_val)
 
@@ -127,6 +127,10 @@ def run_eval_alg(algorithm, train, test, dataset, processed_data, all_sensitive_
         if 'indiv_fairness' in metric.name:
             result = metric.calc(actual, predicted, dict_sensitive_lists, single_sensitive,
                              privileged_vals, positive_val, features)
+        elif 'lipschitz' in metric.name:
+            result = metric.calc(actual, predicted, dict_sensitive_lists, single_sensitive,
+                             privileged_vals, positive_val, test_indices, prediction_probs, 
+                             dataset.dataset_name)            
         else:
             result = metric.calc(actual, predicted, dict_sensitive_lists, single_sensitive,
                              privileged_vals, positive_val)
@@ -156,13 +160,11 @@ def run_alg(algorithm, train, test, dataset, all_sensitive_attributes, single_se
     # some fairness aware algorithms may need those in the dataset.  They should be removed
     # before any model training is done.
 
-    predictions, predictions_list =  \
+    predictions, predictions_list, prediction_probs =  \
         algorithm.run(train, test, class_attr, positive_val, all_sensitive_attributes,
                       single_sensitive, privileged_vals, params)
 
-    # print('predictions: ', predictions)
-
-    return predictions, params, predictions_list
+    return predictions, params, predictions_list, prediction_probs
 
 
 def get_dict_sensitive_vals(dict_sensitive_lists):

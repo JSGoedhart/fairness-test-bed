@@ -12,16 +12,22 @@ class Generic(Algorithm):
         test_df_nosensitive = test_df.drop(columns = sensitive_attrs)
 
         # create and train the classifier
-        classifier = self.get_classifier()
         y = train_df_nosensitive[class_attr]
         X = train_df_nosensitive.drop(columns = class_attr)
+        
+        classifier = self.get_classifier()        
         classifier.fit(X, y)
 
         # get the predictions on the test set
         X_test = test_df_nosensitive.drop(class_attr, axis=1)
         predictions = classifier.predict(X_test)
 
-        return predictions, []
+        # Get the predicted probabilities if classifier allows for this
+        if self.predict_proba:
+            prediction_probs = classifier.predict_proba(X_test)
+            return predictions, [], prediction_probs
+
+        return predictions, [], []
 
     def get_supported_data_types(self):
         return set(["numerical-binsensitive"])

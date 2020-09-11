@@ -14,7 +14,7 @@ class Metric:
         return self
 
     def calc(self, actual, predicted, dict_of_sensitive_lists, single_sensitive_name,
-             unprotected_vals, positive_pred, features = None):
+             unprotected_vals, positive_pred, *args):
         """
         actual                          a list of the actual results on the test set
         predicted                       a list of the predicted results

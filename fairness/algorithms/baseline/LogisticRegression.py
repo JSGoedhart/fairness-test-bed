@@ -6,3 +6,4 @@ class LogisticRegression(Generic):
         Generic.__init__(self)
         self.classifier = SKLearn_LR(max_iter = 10000)
         self.name = "LR"
+        self.predict_proba = True

@@ -6,3 +6,4 @@ class DecisionTree(Generic):
         Generic.__init__(self)
         self.classifier = SKLearn_DT()
         self.name = "DecisionTree"
+        self.predict_proba = False
