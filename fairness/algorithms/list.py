@@ -19,11 +19,11 @@ from fairness.metrics.MCC import MCC
 ALGORITHMS = [
 	#ZemelAlgorithm(),
   #ZafarAlgorithmBaseline(),                                      # Zafar
-  #ZafarAlgorithmFairness(),
-  #ZafarAlgorithmAccuracy(),
+  ZafarAlgorithmFairness(),
+  ZafarAlgorithmAccuracy(),
 	FeldmanAlgorithm(SVM()), FeldmanAlgorithm(GaussianNB()),       # Feldman
-	FeldmanAlgorithm(LogisticRegression()), #FeldmanAlgorithm(DecisionTree()),
-	SVM(), GaussianNB(), LogisticRegression() #, DecisionTree()
+	FeldmanAlgorithm(LogisticRegression()), FeldmanAlgorithm(DecisionTree()),
+	SVM(), GaussianNB(), LogisticRegression(), DecisionTree()
   # FeldmanAlgorithm(LogisticRegression())    # baseline
    #KamishimaAlgorithm(),                                          # Kamishima
    #CaldersAlgorithm(),                                            # Calders
