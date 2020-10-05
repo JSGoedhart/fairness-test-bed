@@ -34,7 +34,7 @@ metrics = [ Accuracy(), TPR(), TNR(), FPR(), FNR(), BCR(), MCC(), F1Score(),    
 
 # lipschitz = [LipschitzViolation(k, 'seuclidean') for k in range(1, 20)]
 
-METRICS = metrics + lipschitz
+METRICS = metrics # + lipschitz
 
 def get_metrics(dataset, sensitive_dict, tag):
     """
