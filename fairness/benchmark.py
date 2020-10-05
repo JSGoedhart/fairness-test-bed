@@ -128,9 +128,12 @@ def run_eval_alg(algorithm, train, test, dataset, processed_data, all_sensitive_
             result = metric.calc(actual, predicted, dict_sensitive_lists, single_sensitive,
                              privileged_vals, positive_val, features)
         elif 'lipschitz' in metric.name:
-            result = metric.calc(actual, predicted, dict_sensitive_lists, single_sensitive,
-                             privileged_vals, positive_val, test_indices, prediction_probs, 
-                             dataset.dataset_name)            
+            if prediction_probs != []:
+                result = metric.calc(actual, predicted, dict_sensitive_lists, single_sensitive,
+                                 privileged_vals, positive_val, test_indices, prediction_probs, 
+                                 dataset.dataset_name)
+            else:
+                result = None
         else:
             result = metric.calc(actual, predicted, dict_sensitive_lists, single_sensitive,
                              privileged_vals, positive_val)
