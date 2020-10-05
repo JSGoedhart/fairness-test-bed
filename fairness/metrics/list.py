@@ -32,7 +32,7 @@ metrics = [ Accuracy(), TPR(), TNR(), FPR(), FNR(), BCR(), MCC(), F1Score(),    
             SensitiveMetric(FPR), SensitiveMetric(FNR), # more group fairness metrics
             SensitiveMetric(CalibrationPos), SensitiveMetric(CalibrationNeg) ] # more group fairness metrics
 
-lipschitz = [LipschitzViolation(k, 'seuclidean') for k in range(1, 20)]
+# lipschitz = [LipschitzViolation(k, 'seuclidean') for k in range(1, 20)]
 
 METRICS = metrics + lipschitz
 
