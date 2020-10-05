@@ -30,6 +30,7 @@ class PropublicaViolentRecidivism(Data):
                               (dataframe.is_recid != -1) &
                               (dataframe.c_charge_degree != '0') &
                               (dataframe.score_text != 'N/A')]
+        dataframe['two_year_recid'] = dataframe['two_year_recid'].replace({0: 1, 1: 0}) # Joosje
         dataframe = dataframe.drop(columns = ['days_b_screening_arrest', 'is_recid',
                                               'decile_score', 'score_text'])
         return dataframe

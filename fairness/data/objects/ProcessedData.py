@@ -61,7 +61,7 @@ class ProcessedData():
 
     def generate_distance_matrix(self, distance_metric = 'euclidean'):
 
-        if distance_metric not in ['euclidean', 'cosine']:
+        if distance_metric not in ['euclidean', 'cosine', 'seuclidean']:
             raise Exception('In order to compute the distance matrix, type should be euclidean or cosine')
 
         for k in TAGS:

@@ -18,7 +18,7 @@ def main():
 		processed_dataset = ProcessedData(dataset_obj)
 
 		# Compute distances
-		processed_dataset.generate_distance_matrix(distance_metric = 'cosine')
+		processed_dataset.generate_distance_matrix(distance_metric = 'seuclidean')
 
 if __name__ == '__main__':
 	main()
