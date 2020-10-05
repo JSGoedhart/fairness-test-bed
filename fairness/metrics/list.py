@@ -26,7 +26,7 @@ from fairness.metrics.LipschitzViolation import LipschitzViolation
 
 metrics = [ Accuracy(), TPR(), TNR(), BCR(), MCC(), F1Score(),       # accuracy metrics
             DIBinary(), DIAvgAll(), CV(), # group fairness metrics
-            Consistency(), ConsistencyCosine(), ConsistencyHamming(),  # individual fairness metrics
+            Consistency(),  # individual fairness metrics
             BaseRateDifference(),                         # base rate difference
             SensitiveMetric(Accuracy), SensitiveMetric(TPR), SensitiveMetric(TNR), # more group fairness metrics
             SensitiveMetric(FPR), SensitiveMetric(FNR), # more group fairness metrics
