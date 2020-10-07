@@ -64,6 +64,8 @@ def run(num_trials = NUM_TRIALS_DEFAULT, dataset = get_dataset_names(),
                         train, test = train_test_splits[supported_tag][i]
                         
                         test_indices = list(test.index.values)
+                        print('Test size: ', len(test_indices))
+                        print(test.shape)
 
                         try:
                             params, results, param_results =  \
