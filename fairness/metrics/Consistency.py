@@ -9,10 +9,6 @@ class Consistency(Metric):
         self.name = 'indiv_fairness_consistency'
         self.n_neighbors = 5
 
-    def euclidian_distance(self, a, b):
-        ''' Euclidian Distance Function '''
-        return np.sqrt(np.sum(np.square(a - b)))
-
     def calc(self, actual, predicted, dict_of_sensitive_lists, single_sensitive_name, 
         unprotected_vals, positive_pred, features):
 
@@ -23,7 +19,7 @@ class Consistency(Metric):
 
         predicted = np.asarray(predicted)
 
-        distMat = pairwise_distances(features, metric = self.euclidian_distance)
+        distMat = pairwise_distances(features, metric = 'seuclidean')
         knn_ixs = np.argsort(distMat, axis = 1)[:, 1:] # sort neighbors
         knn_ixs = knn_ixs[:, 0 : self.n_neighbors] # only keep n_neighbors
 
