@@ -5,7 +5,7 @@ The structure of this repository and parts of the code of this repository are ba
 ## Installation
 To install this software, create an environment that satisfies the requirements in requirements.txt.
 Subsequently run: 
-$ pip install setup.py
+    $ pip install setup.py
 
 ## Visualisations from Thesis
 Results and visualisations can be found in the folders:
@@ -15,7 +15,7 @@ Results and visualisations can be found in the folders:
 
 ## Reproduction
 For those intrested in reproducing the results, run
-$ python fairness/benchmark.py
+    $ python fairness/benchmark.py
 
   
   
