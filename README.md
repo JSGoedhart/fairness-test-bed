@@ -1,11 +1,5 @@
-This repository is meant to enable the evaluation of group fairness interventions. 
+# A Test-Bed for the Evaluation of Group Fairness Interventions
+This repository is created to reproduce the results of my thesis 'Evaluating the Cost of Group Fairness Interventions in Machine Learning'. 
+The structure of this repository and parts of the code of this repository are based on https://github.com/algofairness/fairness-comparison
 
-The associated thesis is:
-
-Evaluating the Cost of Group Fairness Evaluations in Machine Learning. 
-
-
-The structure of this repository and parts of the code of this repository are based on https://github.com/algofairness/fairness-comparison/tree/master/fairness
-
-An description of install requirements will be made available here.
-
+## Installation and Reproduction
